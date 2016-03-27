@@ -1,0 +1,32 @@
+=====编译打包部署完整流程=====
+一．执行根目录下CleanUp.bat脚本，删除项目内所有bin和obj文件夹及引用目录编译生成文件；
+二．编译根目录下Framework.all.sln，该solution中包含Domain（Model、Repository、Service）、Controls、ThirdParty、XPlugin目录；
+三．编译根目录下View.Core.sln,该solution中包含客户端核心IMG.View.Core、SceneMonitor.View.Core等；
+四．编译集客GCSSView\View\GCSSView.sln中的GCSS.View.Controls工程；
+五．编译十大场景PerformanceMonitor\PerformanceMonitor.sln中的IMG.View.Controls.ROYBFaultMonitorControl.csproj
+六．编译概况SMonitorView\SceneMonitor.sln中的SceneMonitor.View.Controls工程、SceneMonitor.Controls.ProjectWindow工程、View.Controls\IMG.View.ArcGisControl工程；
+七．编译各解决方案中的视图View及视图组件工程，目前需要打包验证的工程包括：
+    1.SceneMonitor.sln：View.Controls、SMonitorView文件夹下所有工程
+    2.IMP.sln：View.Controls、IMPView文件夹下所有工程
+    3.GCSSView.sln：View.Controls、GCSSView文件夹下所有工程
+    4.PerformanceMonitor.sln: 编译顺序：（单独打包说明：若只打十大场景包,编译之前需要先编译调用其他解决方案视图包a.IMP.sln的工程IMP.Views.FilterView.csproj；b.GCSSView.sln的工程CMCCGCSS.View.CirCuitView.csproj；c.EmergencyMonitor.sln的工程PerformanceMonitor.Emergency.Views.EmergMaintain.csproj；d.SceneMonitor.sln的工程SceneMonitor.View.TopoView.csproj）
+      1）PerformanceMonitor\Common\下的Models文件夹中所有工程；
+      2）Controls文件夹下所有工程；
+      3）PerformanceMonitor\Common\下的Controls文件夹中所有工程；
+      4）View.Controls文件夹下所有工程；
+      5）EventHandlers文件夹下所有工程；
+      6）PerformanceMonitorViews文件夹下其他所有工程；
+八．日构建自动打包，在编执行步骤七之后，需要编译IMG.Startup.Web；
+九．使用集客GCSSView.sln文件，增加IMG.View.ArcGisControl.dll、SceneMonitor.View.Controls.dll、GCSS.View.Controls.dll、GCSS.View.Core工程到IMG.Startup中，编译IMG.Startup；
+十．下载框架：FTP地址：ftp:10.31.44.5/独立产品区/WNMSWEB框架/1.2.7/wnmsweb故障管理系统——20130812.rar；
+    拷贝自动打包文件目录\Startup\IMG.Startup.Web\ClientBin\目录下的所有文件至
+    (框架目录)\PlugIn\IMG\ClientBin\目录下；
+    如果当前站点有则无需拷贝的文件：（尽量不要直接覆盖这些文件）
+    ClientBin\Config\StandardViews.xml；
+    ClientBin\Config\ViewsMap.xml；
+    ClientBin\Config\Xaml文件夹；
+    ClientBin\Config\Xamls文件夹；
+    ClientBin\Config\CommonConfigInfo.xml（需要用户增量升级）；
+    ClientBin\Config\SqlConfig.xml（需要用户增量升级）；
+十一．将框架整体压缩为zip文件，上传至FTP，FTP的账号：imgtest，密码：imgtest123，ftp地址：ftp://10.31.44.2:21，将包提交到该路径下的05-应用程序/客户端 ，用时间日期标示安装包的版本。
+
